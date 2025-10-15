@@ -7,24 +7,33 @@ let isGameStarted = false;
 let timing = 700;
 let level = 1;
 let isGameOver = false;
+const clickSound = new Audio('./mixkit-select-click-1109.wav');
+const gameOverSound = new Audio('./game-over-deep-male-voice-clip-352695.mp3');
+gameOverSound.playbackRate = 2.0;
 
-function recursiveFlashing(){
-    h1.textContent = `Level - ${level}`;
-    randomNum();
-    randNumArray.forEach((item, index) => {
-        let delay = (index + 1) * 1000;
-        setTimeout(() => {
-            if(isGameStarted){
-                flash(boxes[item]);
-            }
-        }, delay)
-    })
+function headBg(){
+    console.log(90);
+    h1.classList.toggle("levelUp");
+    setTimeout(() => {
+        h1.classList.toggle("levelUp");
+    }, 300);
+}
+
+const levelUp = () => {
+    h1.textContent = `LEVEL - ${level}`;
+    let random = randomNum();
+    setTimeout(() => {
+        flash(boxes[random]);
+        clickSound.play();
+        clickSound.currentTime = 0;
+    }, 600)
 }
 
 document.addEventListener("keydown", () => {
     if(!isGameStarted){
+        levelUp();
         container.addEventListener("click", handleClick);
-        recursiveFlashing();
+        headBg();
         isGameStarted = true; 
         isGameOver = false; 
     }
@@ -34,12 +43,13 @@ function handleClick(event) {
    if(isGameStarted){
         let clickedItem = Number(event.target.dataset.num);
         flash(event.target);
+        clickSound.play();
+        clickSound.currentTime = 0;
         userClickArray.push(clickedItem);
         matchOrNot(clickedItem);
    }
 }
 
-// Making boxes blink
 function flash(target){
     target.classList.toggle("flash");
     setTimeout(() => {
@@ -47,7 +57,14 @@ function flash(target){
     }, 250);
 }
 
-// Generating random numbers between 0-4 
+const body = document.querySelector("body");
+const flashBody = () => {
+    body.classList.toggle("red");
+    setTimeout(() => {
+        body.classList.toggle("red");
+    }, 250);
+}
+
 function randomNum(){
     let randNum = Math.floor(Math.random() * 4);
     randNumArray.push(randNum);
@@ -55,7 +72,7 @@ function randomNum(){
 }
 
 function resetGame(){
-    h1.textContent = `Game Over! Your score was ${level - 1}, Press any key to restart`;
+    h1.innerHTML = `GAME OVER YOUR SCORE WAS <big><b> ${level - 1} </b></big> </br> PRESS ANY KEY TO RESTART`;
     isGameStarted = false;
     level = 1;
     randNumArray = [];
@@ -63,17 +80,18 @@ function resetGame(){
     userClickArray = [];
 }
 
-// Checking if clicked box is in same sequence or not.
 function matchOrNot(clickedItem){
-    
     if(!(clickedItem === randNumArray[userClickArray.length - 1])){
+        gameOverSound.play();
+        flashBody();
         isGameOver = true;
         resetGame();
     }
 
     else if(userClickArray.length === randNumArray.length && !isGameOver){
+        headBg();
         level++;
         userClickArray = [];
-        recursiveFlashing();
+        levelUp();
     }  
 }
