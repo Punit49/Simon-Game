@@ -8,32 +8,32 @@ let isGameStarted = false;
 let timing = 700;
 let level = 1;
 let isGameOver = false;
-const clickSound = new Audio('./mixkit-select-click-1109.wav');
-const gameOverSound = new Audio('./game-over-deep-male-voice-clip-352695.mp3');
+const clickSound = new Audio('./Assests/mixkit-select-click-1109.wav');
+const gameOverSound = new Audio('./Assests/game-over-deep-male-voice-clip-352695.mp3');
 gameOverSound.playbackRate = 2.0;
 let highestScore;
 
+// localStorage.clear()
+
 const updateHighestScore = () => {
     highestScore++;
-    localStorage.setItem("highestScore", JSON.stringify(highestScore) || 0);
+    localStorage.setItem("highestScore", JSON.stringify(highestScore));
 }
 
 const getHighScore = () => {
     highestScore = JSON.parse(localStorage.getItem("highestScore")) || 0;
     highest.textContent = `Highest Score - ${highestScore}`;
-    console.log(highestScore)
 }
 getHighScore();
 
 const setScore = () => {
-     if(level > highestScore + 1){
+    if(level > highestScore + 1){
         updateHighestScore();
         getHighScore();
     }
 }
 
 function headBg(){
-    console.log(90);
     h1.classList.toggle("levelUp");
     setTimeout(() => {
         h1.classList.toggle("levelUp");
@@ -47,7 +47,7 @@ const levelUp = () => {
         flash(boxes[random]);
         clickSound.play();
         clickSound.currentTime = 0;
-    }, 600)
+    }, 600);
 }
 
 document.addEventListener("keydown", () => {
@@ -97,7 +97,7 @@ function resetGame(){
     isGameStarted = false;
     level = 1;
     randNumArray = [];
-    clickedItem = "";
+    // clickedItem = "";
     userClickArray = [];
 }
 
