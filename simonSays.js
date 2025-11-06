@@ -2,6 +2,7 @@ const boxes = document.querySelectorAll(".boxes");
 const container = document.querySelector(".container");
 const h1 = document.querySelector("#heading");
 const highest = document.querySelector("#high");
+const startBtn = document.querySelector("#startBtn");
 const body = document.querySelector("body"); 
 
 const clickSound = new Audio('./mixkit-select-click-1109.wav');
@@ -51,7 +52,7 @@ const levelUp = () => {
     }, 600);
 }
 
-document.addEventListener("keydown", () => {
+startBtn.addEventListener("click", () => {
     if(!isGameStarted){
         levelUp();
         container.addEventListener("click", handleClick);
@@ -116,3 +117,4 @@ function matchOrNot(clickedItem){
 // optimizations -
 // 1. Changed highscore condition
 // 2. created flashElement function
+// problem - not working on phone

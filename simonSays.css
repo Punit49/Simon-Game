@@ -23,6 +23,18 @@ h2{
     margin: 3rem 0
 }
 
+#startBtn{
+    background-color: green;
+    color: white;
+    padding: 1rem;
+    font-size: 1.7rem;
+    border-radius: 10px;
+    letter-spacing: 5px;
+    margin-bottom: 1.8rem;
+    font-weight: 700;
+    border: none;
+}
+
 .levelUp{
     background-color: green;
 }
