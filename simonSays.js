@@ -8,8 +8,8 @@ let isGameStarted = false;
 let timing = 700;
 let level = 1;
 let isGameOver = false;
-const clickSound = new Audio('./Assests/mixkit-select-click-1109.wav');
-const gameOverSound = new Audio('./Assests/game-over-deep-male-voice-clip-352695.mp3');
+const clickSound = new Audio('./mixkit-select-click-1109.wav');
+const gameOverSound = new Audio('./game-over-deep-male-voice-clip-352695.mp3');
 gameOverSound.playbackRate = 2.0;
 let highestScore;
 
